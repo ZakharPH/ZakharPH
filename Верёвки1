@@ -1,0 +1,36 @@
+#include <iostream>
+#include <vector>
+
+int main(){
+    int n;
+    std::cin >> n;
+    int c;
+    std::vector<int> z ;
+    for (int i = 0; i < n; i++){
+        std::cin >> c;
+        z.push_back(c);
+    }
+    int a;
+    std::cin >> a;
+    int b;
+    for (int i = 0; i < n; i++){
+        b = b + z[i];
+    }
+    int o = 0;
+    int j = b + 1;
+    int m;
+    while (j - o > 1){
+        m = (o + j) / 2;
+        int h = 0;
+        for (int i = 0; i < n; i++){
+            h =h + z[i] / m;
+        }
+        if (h >= a){
+            o = m;
+        }
+        else{
+            j = m;
+        }
+    }
+    std::cout << o;
+}
