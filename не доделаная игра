@@ -1,0 +1,353 @@
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <string>
+
+int main() {
+    std::cout<<"Эта игра преднозначина для 4 человек"<<std::endl;
+    std::cout<<"Ознокомьтесь с правилами"<<std::endl;
+    std::cout<<"Чтобы выйграть нужно дайти до 40 клетки"<<std::endl;
+    std::cout<<"В нашей игре бродилке есть деньги получаемые из сокровищницы,"<<std::endl;
+    std::cout<<"магазинчик открываемый буквой 'M' "<<std::endl;
+    std::cout<<"но при покупки вещи вы её используете её сразу"<<std::endl;
+    std::cout<<"У каждого есть по 3 здоровья "<<std::endl;
+    std::cout<<"Также если вы хотите ходить напишите букву 'X' "<<std::endl;
+    std::cout<<"Если Вы умрете то перейдете "<<std::endl;
+    std::cout<<"Введите никнейм первого игрока:"<<std::endl;
+    std::string o;
+    int j;
+    int Go = 3;
+    int Do = 1000;
+    int oi = 0;
+    std::cin>> o;
+    std::cout<<"Введите никнейм второго игрока:"<<std::endl;
+    std::string t;
+    int Gt = 3;
+    int Dt = 1000;
+    int ti = 0;
+    std::cin>> t;
+    std::cout<<"Введите никнейм третьего игрока:"<<std::endl;
+    std::string r;
+    int Gr = 3;
+    int Dfr = 100;
+    int ri = 0;
+    std::cin>> r;
+    std::cout<<"Введите никнейм четвертого игрока:"<<std::endl;
+    std::string f;
+    int Gf = 3;
+    int Df = 100;
+    int fi = 0;
+    std::cin>>  f; 
+    while(oi <= 40 && ti <= 40 && ri <= 40 && fi <= 40){
+        std::cout<<Go<<" хп|Счет "<<Do<< "$ находится на "<<oi<<" клетке || Игрок "<< o<<std::endl;
+        std::cout<<"Что Вы выбирете:"<<std::endl;
+        char s;
+        char u;
+        std::cin>> s;
+        if(s == 'X'){
+            std::srand(std::time(0)); 
+            oi = oi + std::rand() % 6 + 1; 
+            if(oi % 3 == 1){
+                Do = Do + 100;
+            }
+            Do = Do + 100;
+            std::cout<<Go<<" хп|Счет "<<Do<< "$ находится на "<<oi<<" клетке || Игрок "<< o<<std::endl;
+        }
+        else if(s == 'M'){
+            std::cout<<"Вы открыли магазинчик!!!"<<std::endl;
+            std::cout<<"Аптечка восполняет одно хп стоит 250$ если хотить нажмите'A'"<<std::endl;
+            std::cout<<"Машинка -1 хп ближайшему игроку стоит 250$ если хотить нажмите'B'"<<std::endl;
+            std::cout<<"Ракета -2 хп любому игроку 450$ если хотить нажмите'C'"<<std::endl;
+            std::cout<<"Телепорт поменяйся местами с кем хочешь стоит 800$'D'"<<std::endl;
+            std::cout<<"Сделать ход'Y'"<<std::endl;
+            std::cin>> s;
+            if(s == 'A'){
+                if(Do < 250){
+                    std::cout<<"Нет денег"<<std::endl;
+                }
+                else{
+                    if(Go == 3){
+                        std::cout<<"Макс запас хп"<<std::endl;
+                    }
+                    else{
+                        Do = Do - 250;
+                        Go = Go + 1;
+                    }
+                }
+            }
+            else if(s == 'B'){
+                if(Do < 250){
+                    std::cout<<"Нет денег"<<std::endl;
+                }
+                else{
+                    Do = Do - 250;
+                    int w = std::abs(oi - ri);
+                    int q = std::abs(oi - ti);
+                    int e = std::abs(oi - fi);
+                    if(q<=w<=e){
+                        Gt = Gt - 1;
+                        if(Gt <= 0){
+                            ti = 0;
+                        }
+                    }
+                    else if(q<=e<=w){
+                        Gt = Gt - 1;
+                        if(Gt <= 0){
+                            ti = 0;
+                        }
+                    }
+                    else if(e<=w<=q){
+                        Gf = Gf - 1;
+                        if(Gf <= 0){
+                            fi = 0;
+                        }
+                    }
+                    else if(e<=q<=w){
+                        Gf = Gf - 1;
+                        if(Gf <= 0){
+                            fi = 0;
+                        }
+                    }
+                    else if(w<=q<=e){
+                        Gr = Gr - 1;
+                        if(Gr <= 0){
+                            ri = 0;
+                        }
+                    }
+                    else if(w<=e<=q){
+                        Gr = Gr - 1;
+                        if(Gr <= 0){
+                            ri = 0;
+                        }
+                    }
+                }
+            }
+            else if(s == 'C'){
+                if(Do < 450){
+                    std::cout<<"Нет денег"<<std::endl;
+                }
+                else{
+                    std::cout<<"Напиши ник того кого хочешь убить:"<<std::endl;
+                    std::string l;
+                    std::cin>> l;
+                    Do = Do - 450;
+                    if(l == o){
+                        Go = Go - 2;
+                        if(Go <= 0){
+                            oi = 0;
+                        }
+                    }
+                    else if(l == t){
+                        Gt = Gt - 2;
+                        if(Gt <= 0){
+                            ti = 0;
+                        }
+                    }
+                    else if(l == r){
+                        Gr = Gr - 2;
+                        if(Gr <= 0){
+                            ri = 0;
+                        }
+                    }
+                    else if(l == f){
+                        Gf = Gf - 2;
+                        if(Gf <= 0){
+                            fi = 0;
+                        }
+                    }
+                }
+            }
+            else if(s == 'D'){
+                if(Do < 800){
+                    std::cout<<"Нет денег"<<std::endl;
+                }
+                else{
+                    std::cout<<"Напиши ник того кого хочешь убить:"<<std::endl;
+                    std::string l;
+                    std::cin>> l;
+                    Do = Do - 800;
+                    if(l == t){
+                        j = oi;
+                        oi = ti;
+                        ti = j;
+                    }
+                    else if(l == r){
+                        j = oi;
+                        oi = ri;
+                        ri = j;
+                        
+                    }
+                    else if(l == f){
+                        j = oi;
+                        oi = fi;
+                        fi = j;
+                        
+                    }
+                }
+            }
+            else if(s == 'Y'){
+                std::srand(std::time(0)); 
+                oi = oi + std::rand() % 6 + 1; 
+                if(oi % 3 == 1){
+                    Do = Do + 100;
+                }
+                Do = Do + 100;
+                std::cout<<Go<<" хп|Счет "<<Do<< "$ находится на "<<oi<<" клетке || Игрок "<< o<<std::endl;
+            }
+        }
+        std::cout<<Gt<<" хп|Счет "<<Dt<< "$ находится на "<<ti<<" клетке || Игрок "<< t<<std::endl;
+        std::cout<<"Что Вы выбирете:"<<std::endl;
+        std::cin>> s;
+        if(s == 'X'){
+            std::srand(std::time(0)); 
+            ti = ti + std::rand() % 6 + 1; 
+            if(ti % 3 == 1){
+                Dt = Dt + 100;
+            }
+            Dt = Dt + 100;
+            std::cout<<Gt<<" хп|Счет "<<Dt<< "$ находится на "<<ti<<" клетке || Игрок "<< t<<std::endl;
+        }
+        else if(s == 'M'){
+            std::cout<<"Вы открыли магазинчик!!!"<<std::endl;
+            std::cout<<"Аптечка восполняет одно хп стоит 250$ если хотить нажмите'A'"<<std::endl;
+            std::cout<<"Машинка -1 хп ближайшему игроку стоит 250$ если хотить нажмите'B'"<<std::endl;
+            std::cout<<"Ракета -2 хп любому игроку 450$ если хотить нажмите'C'"<<std::endl;
+            std::cout<<"Телепорт поменяйся местами с кем хочешь стоит 800$'D'"<<std::endl;
+            std::cout<<"Выйти из магазина 'Y'"<<std::endl;
+            std::cin>> s;
+            if(s == 'A'){
+                if(Dt < 250){
+                    std::cout<<"Нет денег"<<std::endl;
+                }
+                else{
+                    if(Gt == 3){
+                        std::cout<<"Макс запас хп"<<std::endl;
+                    }
+                    else{
+                        Dt = Dt - 250;
+                        Gt = Gt + 1;
+                    }
+                }
+            }
+            else if(s == 'B'){
+                if(Dt < 250){
+                    std::cout<<"Нет денег"<<std::endl;
+                }
+                else{
+                    Dt = Dt - 250;
+                    int w = std::abs(ti - ri);
+                    int q = std::abs(ti - oi);
+                    int e = std::abs(ti - fi);
+                    if(q<=w<=e){
+                        Go = Go - 1;
+                        if(Go <= 0){
+                            oi = 0;
+                        }
+                    }
+                    else if(q<=e<=w){
+                        Go = Go - 1;
+                        if(Go <= 0){
+                            oi = 0;
+                        }
+                    }
+                    else if(e<=w<=q){
+                        Gf = Gf - 1;
+                        if(Gf <= 0){
+                            fi = 0;
+                        }
+                    }
+                    else if(e<=q<=w){
+                        Gf = Gf - 1;
+                        if(Gf <= 0){
+                            fi = 0;
+                        }
+                    }
+                    else if(w<=q<=e){
+                        Gr = Gr - 1;
+                        if(Gr <= 0){
+                            ri = 0;
+                        }
+                    }
+                    else if(w<=e<=q){
+                        Gr = Gr - 1;
+                        if(Gr <= 0){
+                            ri = 0;
+                        }
+                    }
+                }
+            }
+            else if(s == 'C'){
+                if(Dt < 450){
+                    std::cout<<"Нет денег"<<std::endl;
+                }
+                else{
+                    std::cout<<"Напиши ник того кого хочешь убить:"<<std::endl;
+                    std::string l;
+                    std::cin>> l;
+                    Dt = Dt - 450;
+                    if(l == t){
+                        Gt = Gt - 2;
+                        if(Gt <= 0){
+                            ti = 0;
+                        }
+                    }
+                    else if(l == o){
+                        Go = Go - 2;
+                        if(Go <= 0){
+                            oi = 0;
+                        }
+                    }
+                    else if(l == r){
+                        Gr = Gr - 2;
+                        if(Gr <= 0){
+                            ri = 0;
+                        }
+                    }
+                    else if(l == f){
+                        Gf = Gf - 2;
+                        if(Gf <= 0){
+                            fi = 0;
+                        }
+                    }
+                }
+            }
+            else if(s == 'D'){
+                if(Dt < 800){
+                    std::cout<<"Нет денег"<<std::endl;
+                }
+                else{
+                    std::cout<<"Напиши ник того кого хочешь убить:"<<std::endl;
+                    std::string l;
+                    std::cin>> l;
+                    Dt = Dt - 800;
+                    if(l == o){
+                        j = ti;
+                        ti = oi;
+                        oi = j;
+                    }
+                    else if(l == r){
+                        j = ti;
+                        ti = ri;
+                        ri = j;
+                        
+                    }
+                    else if(l == f){
+                        j = ti;
+                        ti = fi;
+                        fi = j;
+                        
+                    }
+                }
+            }
+            else if(s == 'Y'){
+                std::srand(std::time(0)); 
+                oi = oi + std::rand() % 6 + 1; 
+                if(oi % 3 == 1){
+                    Do = Do + 100;
+                }
+                Do = Do + 100;
+                std::cout<<Gt<<" хп|Счет "<<Dt<< "$ находится на "<<ti<<" клетке || Игрок "<< t<<std::endl;
+            }
+        }
+    }
+}
